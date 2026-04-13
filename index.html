@@ -10,37 +10,43 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
   --teal:#0F6E56;--teal2:#1D9E75;--teal-bg:#E1F5EE;--teal-border:#9FE1CB;
-  --navy:#042C53;--blue-bg:#E6F1FB;--blue-border:#B5D4F4;
+  --navy:#042C53;--blue-bg:#E6F1FB;
   --amber:#854F0B;--amber-bg:#FAEEDA;--amber-border:#FAC775;
   --red:#A32D2D;--red-bg:#FCEBEB;--red-border:#F7C1C1;
   --green:#3B6D11;--green-bg:#EAF3DE;--green-border:#C0DD97;
-  --gray-bg:#F1EFE8;--gray-border:#D3D1C7;--gray-text:#5F5E5A;
+  --gray-bg:#F1EFE8;--gray-text:#5F5E5A;
   --bg:#FAFAF8;--surface:#FFFFFF;--border:#E4E2DA;--text:#1A1A18;--text2:#5F5E5A;
   --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--serif:'Fraunces',serif;
   --radius:10px;--radius-sm:6px;
 }
 body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;}
-.page{max-width:700px;margin:0 auto;padding:1.5rem 1rem 4rem;}
 
-/* header */
+/* LOCK */
+.lock{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;padding:1.5rem;}
+.lock-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);padding:2.25rem 2rem 1.75rem;width:100%;max-width:340px;text-align:center;}
+.lock-logo{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--text);margin-bottom:4px;}
+.lock-badge{display:inline-block;font-family:var(--mono);font-size:10px;background:var(--teal-bg);color:var(--teal);border:0.5px solid var(--teal-border);border-radius:100px;padding:2px 8px;margin-bottom:1rem;}
+.lock-sub{font-size:12px;color:var(--text2);margin-bottom:1.5rem;line-height:1.6;}
+.lock-label{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;font-weight:500;color:var(--text2);margin-bottom:6px;text-align:left;}
+.lock-input{width:100%;font-family:var(--mono);font-size:15px;padding:10px 12px;border:0.5px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);color:var(--text);outline:none;letter-spacing:0.15em;text-align:center;margin-bottom:10px;transition:border-color 0.15s;}
+.lock-input:focus{border-color:var(--teal);}
+.lock-btn{width:100%;padding:11px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:background 0.15s;}
+.lock-btn:hover{background:var(--teal2);}
+.lock-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.lock-err{font-size:12px;color:var(--red);margin-top:8px;min-height:18px;}
+.lock-brand{font-size:11px;color:var(--teal);font-family:var(--serif);font-style:italic;margin-top:1.5rem;}
+
+/* APP */
+.app{display:none;}
+.page{max-width:700px;margin:0 auto;padding:1.5rem 1rem 4rem;}
 .hdr{margin-bottom:1.5rem;}
 .hdr-top{display:flex;align-items:flex-end;gap:10px;margin-bottom:3px;}
 .hdr-title{font-family:var(--serif);font-size:24px;color:var(--text);}
 .hdr-title em{font-style:italic;}
 .hdr-badge{font-family:var(--mono);font-size:10px;background:var(--teal-bg);color:var(--teal);border:0.5px solid var(--teal-border);border-radius:100px;padding:2px 8px;margin-bottom:4px;}
 .hdr-sub{font-size:13px;color:var(--text2);font-weight:300;}
-.vamsi{font-family:var(--serif);font-size:11px;color:var(--teal);font-style:italic;margin-top:2px;}
+.hdr-brand{font-size:11px;color:var(--teal);font-family:var(--serif);font-style:italic;margin-top:2px;}
 
-/* api key */
-.apikey-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1rem;}
-.apikey-label{font-size:10px;text-transform:uppercase;letter-spacing:0.09em;font-weight:500;color:var(--text2);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
-.apikey-label a{color:var(--teal);font-size:10px;text-decoration:none;}
-.apikey-row{display:flex;gap:8px;align-items:center;}
-.apikey-row input{flex:1;font-family:var(--mono);font-size:12px;padding:8px 10px;border:0.5px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);color:var(--text);outline:none;}
-.apikey-row input:focus{border-color:var(--teal);}
-.apikey-note{font-size:11px;color:var(--text2);margin-top:5px;line-height:1.5;}
-
-/* upload */
 .drop{border:1px dashed var(--border);border-radius:var(--radius);padding:2rem 1.5rem;text-align:center;cursor:pointer;background:var(--surface);position:relative;transition:border-color 0.15s,background 0.15s;}
 .drop:hover,.drop.over{border-color:var(--teal2);background:var(--teal-bg);}
 .drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
@@ -48,25 +54,21 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .drop-t{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px;}
 .drop-s{font-size:12px;color:var(--text2);}
 .drop-cam{font-size:11px;color:var(--teal);margin-top:5px;}
-
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;}
 .thumb{width:72px;height:72px;border-radius:6px;overflow:hidden;border:0.5px solid var(--border);position:relative;flex-shrink:0;}
 .thumb img{width:100%;height:100%;object-fit:cover;}
 .thumb-rm{position:absolute;top:2px;right:2px;width:16px;height:16px;background:rgba(0,0,0,0.55);border:none;border-radius:50%;cursor:pointer;color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;}
 .fbadge{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:var(--bg);border:0.5px solid var(--border);border-radius:6px;font-size:11px;font-family:var(--mono);color:var(--text2);margin-top:6px;}
 
-/* context */
 .ctx{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;}
 .ctx-f{display:flex;flex-direction:column;gap:4px;}
 .ctx-l{font-size:10px;text-transform:uppercase;letter-spacing:0.09em;font-weight:500;color:var(--text2);}
 .ctx-f input,.ctx-f select{font-family:var(--sans);font-size:13px;padding:7px 9px;border:0.5px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);outline:none;}
 .ctx-f input:focus,.ctx-f select:focus{border-color:var(--teal);}
 
-/* criteria ref */
 .ref-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;}
 .ref-head{padding:9px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
 .ref-head-t{font-size:11px;text-transform:uppercase;letter-spacing:0.09em;font-weight:500;color:var(--text2);}
-.ref-arr{font-size:12px;color:var(--text2);}
 .ref-body{padding:12px 14px;border-top:0.5px solid var(--border);display:none;}
 .ref-body.open{display:block;}
 .crit-ref-list{display:flex;flex-direction:column;gap:6px;}
@@ -80,8 +82,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .grade-table td{padding:4px 7px;font-family:var(--mono);border-bottom:0.5px solid var(--border);color:var(--text);}
 .grade-table tr:last-child td{border:none;}
 
-/* button */
-.btn{width:100%;padding:13px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:background 0.15s;letter-spacing:0.01em;}
+.btn{width:100%;padding:13px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:background 0.15s;}
 .btn:hover{background:var(--teal2);}
 .btn:disabled{opacity:0.4;cursor:not-allowed;}
 .prog-wrap{margin:10px 0;display:none;}
@@ -90,14 +91,10 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .stat{font-size:12px;font-family:var(--mono);color:var(--teal);text-align:center;padding:5px 0;}
 .err-box{padding:10px 14px;background:var(--red-bg);border:0.5px solid var(--red-border);border-radius:var(--radius-sm);color:var(--red);font-size:12px;margin-top:10px;display:none;line-height:1.5;}
 
-/* results */
 .results{display:none;margin-top:1.75rem;}
-.results-divider{border:none;border-top:0.5px solid var(--border);margin:1.5rem 0;}
-
-/* grade banner */
-.grade-banner{display:flex;align-items:center;gap:14px;padding:1rem 1.25rem;border-radius:var(--radius);margin-bottom:1.5rem;border:0.5px solid;}
+.grade-banner{display:flex;align-items:center;gap:14px;padding:1rem 1.25rem;border-radius:var(--radius);margin-bottom:1.5rem;border:0.5px solid;flex-wrap:wrap;}
 .grade-letter{width:54px;height:54px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:32px;font-style:italic;flex-shrink:0;}
-.grade-info{flex:1;}
+.grade-info{flex:1;min-width:180px;}
 .grade-tag{font-size:9px;text-transform:uppercase;letter-spacing:0.1em;font-weight:500;margin-bottom:3px;}
 .grade-name{font-size:17px;font-weight:500;margin-bottom:2px;}
 .grade-desc{font-size:12px;line-height:1.5;}
@@ -110,18 +107,15 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .gA .report-pill,.gB .report-pill{background:var(--green-bg);border-color:var(--green-border);color:var(--green);}
 .gC{background:var(--teal-bg);border-color:var(--teal-border);}
 .gC .grade-letter{background:var(--teal);color:#fff;}
-.gC .grade-tag,.gC .grade-name{color:var(--teal);}
-.gC .grade-desc,.gC .grade-rationale{color:var(--teal);}
+.gC .grade-tag,.gC .grade-name,.gC .grade-desc,.gC .grade-rationale{color:var(--teal);}
 .gC .report-pill{background:var(--teal-bg);border-color:var(--teal-border);color:var(--teal);}
 .gD{background:var(--amber-bg);border-color:var(--amber-border);}
 .gD .grade-letter{background:#BA7517;color:#fff;}
-.gD .grade-tag,.gD .grade-name{color:var(--amber);}
-.gD .grade-desc,.gD .grade-rationale{color:var(--amber);}
+.gD .grade-tag,.gD .grade-name,.gD .grade-desc,.gD .grade-rationale{color:var(--amber);}
 .gD .report-pill{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber);}
 .gE{background:#FAECE7;border-color:#F5C4B3;}
 .gE .grade-letter{background:#993C1D;color:#fff;}
-.gE .grade-tag,.gE .grade-name{color:#993C1D;}
-.gE .grade-desc,.gE .grade-rationale{color:#993C1D;}
+.gE .grade-tag,.gE .grade-name,.gE .grade-desc,.gE .grade-rationale{color:#993C1D;}
 .gE .report-pill{background:#FAECE7;border-color:#F5C4B3;color:#993C1D;}
 .gF,.gU{background:var(--red-bg);border-color:var(--red-border);}
 .gF .grade-letter,.gU .grade-letter{background:var(--red);color:#fff;}
@@ -129,15 +123,11 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .gF .grade-desc,.gF .grade-rationale,.gU .grade-desc,.gU .grade-rationale{color:#791F1F;}
 .gF .report-pill,.gU .report-pill{background:var(--red-bg);border-color:var(--red-border);color:var(--red);}
 
-/* section */
 .slabel{font-size:10px;text-transform:uppercase;letter-spacing:0.09em;font-weight:500;color:var(--text2);margin-bottom:8px;padding-bottom:5px;border-bottom:0.5px solid var(--border);}
-
-/* tabs */
 .tabs{display:flex;gap:2px;border-bottom:0.5px solid var(--border);margin-bottom:1rem;overflow-x:auto;}
 .tab{padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;color:var(--text2);background:none;border-top:none;border-left:none;border-right:none;font-family:var(--sans);transition:all 0.12s;white-space:nowrap;}
 .tab.on{color:var(--teal);border-bottom-color:var(--teal);}
 
-/* maneuver */
 .man-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
 .man-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;}
 .man-hdr{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--bg);flex-wrap:wrap;}
@@ -157,19 +147,17 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .crit-label{font-size:12px;color:var(--text);flex:1;line-height:1.4;}
 .crit-note{font-size:11px;font-family:var(--mono);color:var(--text2);margin-left:22px;margin-top:1px;}
 
-/* repeatability */
 .rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.5rem;}
 .rep-card{background:var(--surface);padding:12px 14px;border:0.5px solid var(--border);border-radius:var(--radius);}
 .rep-param{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;color:var(--text2);margin-bottom:6px;}
 .rep-val{font-family:var(--mono);font-size:24px;font-weight:500;margin-bottom:2px;}
 .rep-thresh{font-size:11px;color:var(--text2);}
 .rep-pair{font-size:11px;font-family:var(--mono);color:var(--text2);margin-top:3px;}
+.rep-note-txt{font-size:12px;color:var(--text2);margin-top:8px;line-height:1.5;}
 .rv-pass{color:var(--green);}
 .rv-fail{color:var(--red);}
 .rv-unk{color:var(--gray-text);}
-.rep-note{font-size:12px;color:var(--text2);margin-top:8px;line-height:1.5;}
 
-/* graph */
 .graph-list{display:flex;flex-direction:column;gap:5px;margin-bottom:1.5rem;}
 .graph-row{display:flex;gap:8px;align-items:flex-start;padding:8px 11px;background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius-sm);}
 .graph-scope{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--text2);min-width:64px;margin-top:1px;flex-shrink:0;}
@@ -180,57 +168,78 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .gf-abn{background:var(--red-bg);color:var(--red);}
 .gf-na{background:var(--gray-bg);color:var(--gray-text);}
 
-/* recs */
 .rec-list{display:flex;flex-direction:column;gap:6px;margin-bottom:1.5rem;}
 .rec-row{display:flex;gap:10px;padding:10px 14px;border-radius:var(--radius-sm);border:0.5px solid;align-items:flex-start;}
 .rec-pri{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;min-width:50px;flex-shrink:0;margin-top:1px;}
 .rec-txt{font-size:12px;flex:1;line-height:1.55;}
 .rh{background:var(--red-bg);border-color:var(--red-border);}
-.rh .rec-pri{color:var(--red);}
-.rh .rec-txt{color:#501313;}
+.rh .rec-pri{color:var(--red);}.rh .rec-txt{color:#501313;}
 .rm{background:var(--amber-bg);border-color:var(--amber-border);}
-.rm .rec-pri{color:var(--amber);}
-.rm .rec-txt{color:#412402;}
+.rm .rec-pri{color:var(--amber);}.rm .rec-txt{color:#412402;}
 .rl{background:var(--teal-bg);border-color:var(--teal-border);}
-.rl .rec-pri{color:var(--teal);}
-.rl .rec-txt{color:var(--teal);}
-
+.rl .rec-pri{color:var(--teal);}.rl .rec-txt{color:var(--teal);}
 .foot{font-size:11px;color:var(--text2);text-align:center;padding-top:1.25rem;border-top:0.5px solid var(--border);line-height:1.8;margin-top:0.5rem;}
 
 @media(max-width:480px){
   .ctx{grid-template-columns:1fr;}
   .rep-grid{grid-template-columns:1fr;}
-  .grade-banner{flex-wrap:wrap;}
   .man-vals{display:none;}
+}
+
+@media print {
+  .lock,.tabs,.btn,.prog-wrap,.err-box,.drop,.thumbs,.ctx,.ref-card { display:none !important; }
+  .hdr,.results { display:block !important; }
+  #pane-maneuvers,#pane-graphs,#pane-repeat,#pane-recs { display:block !important; }
+  .slabel { margin-top:1rem; }
+  .man-card,.rep-card,.graph-row,.rec-row { break-inside:avoid; }
+  body { font-size:11px; }
+  .page { padding:0; }
 }
 </style>
 </head>
 <body>
-<div class="page">
 
+<!--
+  ╔══════════════════════════════════════════════════╗
+  ║  ONLY THING YOU EDIT AFTER DEPLOYING THE WORKER  ║
+  ║  Paste your Cloudflare Worker URL below          ║
+  ╚══════════════════════════════════════════════════╝
+-->
+<script>
+const WORKER_URL = 'https://spiroqa.drvamsimutnuri.workers.dev';
+const SHEETS_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL'; // paste your deployed Apps Script URL here
+</script>
+
+<!-- LOCK SCREEN -->
+<div class="lock" id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-logo"><em>Spirometry</em> QC</div>
+    <div class="lock-badge">ATS/ERS 2019</div>
+    <div class="lock-sub">AI-powered quality control assessment<br/>Enter your access code to continue</div>
+    <div class="lock-label">Access code</div>
+    <input class="lock-input" type="password" id="codeInput"
+           placeholder="••••••••" autocomplete="off"
+           onkeydown="if(event.key==='Enter')unlock()"/>
+    <button class="lock-btn" id="lockBtn" onclick="unlock()">Continue</button>
+    <div class="lock-err" id="lockErr"></div>
+    <div class="lock-brand">Precision Pulmonary Diagnostics · Vamsipedia®</div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="app" id="appShell">
+<div class="page">
   <div class="hdr">
     <div class="hdr-top">
       <span class="hdr-title"><em>Spirometry</em> QC Assessor</span>
       <span class="hdr-badge">ATS/ERS 2019</span>
     </div>
     <div class="hdr-sub">Upload report image or PDF — AI assesses acceptability, usability &amp; repeatability only. No interpretation. No reference equations.</div>
-    <div class="vamsi">Precision Pulmonary Diagnostics · Vamsipedia®</div>
+    <div class="hdr-brand">Precision Pulmonary Diagnostics · Vamsipedia®</div>
   </div>
 
-  <!-- API key -->
-  <div class="apikey-card">
-    <div class="apikey-label">
-      Anthropic API key &nbsp;·&nbsp; <a href="https://console.anthropic.com/keys" target="_blank">Get one free →</a>
-    </div>
-    <div class="apikey-row">
-      <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off"/>
-    </div>
-    <div class="apikey-note">Your key is used directly from this browser — it is never stored or transmitted anywhere except to api.anthropic.com. Each analysis costs approximately $0.01–0.03 USD depending on image size.</div>
-  </div>
-
-  <!-- upload -->
   <div class="drop" id="dz">
-    <input type="file" id="fi" accept="image/*,.pdf" multiple capture="environment"/>
+    <input type="file" id="fi" accept="image/*,.pdf" multiple/>
     <div class="drop-icon">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
         <path d="M10 13V5M10 5L6 9M10 5L14 9" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -239,7 +248,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
     </div>
     <div class="drop-t">Drop spirometry report here</div>
     <div class="drop-s">PNG · JPG · PDF — include FV loop and volume-time curve</div>
-    <div class="drop-cam">On mobile: tap to photograph the printout</div>
+    <div class="drop-cam">On mobile: tap to photograph the printout directly</div>
   </div>
   <div class="thumbs" id="thumbs"></div>
 
@@ -257,62 +266,55 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
     </div>
   </div>
 
-  <!-- criteria reference -->
   <div class="ref-card">
     <div class="ref-head" onclick="toggleRef()">
-      <span class="ref-head-t">ATS/ERS 2019 — QC criteria reference</span>
-      <span class="ref-arr" id="refArr">▸</span>
+      <span class="ref-head-t">ATS/ERS 2019 — QC criteria quick reference</span>
+      <span id="refArr">▸</span>
     </div>
     <div class="ref-body" id="refBody">
       <div class="crit-ref-list">
-        <div class="crit-ref"><span class="crit-ref-num">1</span><span class="crit-ref-text"><strong>Good start (BEV):</strong> back-extrapolated volume ≤5% FVC or ≤0.100 L, whichever is greater. BEV &gt;0.150 L = neither acceptable nor usable.</span></div>
-        <div class="crit-ref"><span class="crit-ref-num">2</span><span class="crit-ref-text"><strong>Hesitation time ≤2 s:</strong> time from maximal inspiration to time-zero must not exceed 2 s</span></div>
-        <div class="crit-ref"><span class="crit-ref-num">3</span><span class="crit-ref-text"><strong>No cough in first second:</strong> cough during the 1st second invalidates FEV₁</span></div>
-        <div class="crit-ref"><span class="crit-ref-num">4</span><span class="crit-ref-text"><strong>No early termination / glottis closure:</strong> sustained effort until EOFE; no abrupt stop or closure artifact</span></div>
-        <div class="crit-ref"><span class="crit-ref-num">5</span><span class="crit-ref-text"><strong>Satisfactory EOFE:</strong> plateau ΔV &lt;0.025 L in any last 1 s — <em>or</em> patient cannot continue and FVC ≥ largest prior FVC within repeatability tolerance. <strong>Minimum 6 s FET no longer required (2019).</strong></span></div>
-        <div class="crit-ref"><span class="crit-ref-num">6</span><span class="crit-ref-text"><strong>No leak:</strong> no evidence of air leak around mouthpiece</span></div>
-        <div class="crit-ref"><span class="crit-ref-num">7</span><span class="crit-ref-text"><strong>Maximal effort throughout:</strong> no variable effort; submaximal inspiration flagged (absence of inspiratory limb alone does not fail unless extrathoracic obstruction specifically assessed)</span></div>
+        <div class="crit-ref"><span class="crit-ref-num">1</span><span class="crit-ref-text"><strong>Good start (BEV):</strong> ≤5% FVC or ≤0.100 L, whichever greater. BEV &gt;0.150 L = neither acceptable nor usable.</span></div>
+        <div class="crit-ref"><span class="crit-ref-num">2</span><span class="crit-ref-text"><strong>Hesitation time ≤2 s:</strong> from maximal inspiration to time-zero</span></div>
+        <div class="crit-ref"><span class="crit-ref-num">3</span><span class="crit-ref-text"><strong>No cough in first second:</strong> invalidates FEV₁</span></div>
+        <div class="crit-ref"><span class="crit-ref-num">4</span><span class="crit-ref-text"><strong>No early termination / glottis closure:</strong> sustained effort until EOFE</span></div>
+        <div class="crit-ref"><span class="crit-ref-num">5</span><span class="crit-ref-text"><strong>Satisfactory EOFE:</strong> plateau ΔV &lt;0.025 L in last 1 s — or cannot continue and FVC ≥ largest prior. <strong>Minimum 6 s FET no longer required.</strong></span></div>
+        <div class="crit-ref"><span class="crit-ref-num">6</span><span class="crit-ref-text"><strong>No leak</strong></span></div>
+        <div class="crit-ref"><span class="crit-ref-num">7</span><span class="crit-ref-text"><strong>Maximal effort throughout:</strong> no variable effort. Absence of inspiratory limb alone does not fail.</span></div>
       </div>
       <hr class="divider"/>
       <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);margin-bottom:5px;">Usable maneuver</div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.55;">Meets criteria 1 + 2 only (good start &amp; hesitation ≤2 s). Even if criteria 3–7 fail. Generates Grade U if no acceptable maneuvers exist.</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">Meets criteria 1 + 2 only. Generates Grade U if no acceptable maneuvers exist.</div>
       <hr class="divider"/>
-      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);margin-bottom:5px;">Repeatability thresholds</div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.55;">Age &gt;6 yr: diff between 2 largest FVC &lt;150 mL <em>and</em> 2 largest FEV₁ &lt;150 mL &nbsp;|&nbsp; Age ≤6 yr: &lt;100 mL or 10% of highest value, whichever greater</div>
-      <hr class="divider"/>
-      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);margin-bottom:6px;">Grading system — Table 10, ATS/ERS 2019</div>
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);margin-bottom:6px;">Grading — Table 10, ATS/ERS 2019</div>
       <table class="grade-table">
-        <tr><th>Grade</th><th>Acceptable maneuvers</th><th>FVC diff</th><th>FEV₁ diff</th></tr>
-        <tr><td>A</td><td>≥ 3</td><td>&lt; 100 mL</td><td>&lt; 100 mL</td></tr>
-        <tr><td>B</td><td>≥ 3</td><td>&lt; 150 mL</td><td>&lt; 150 mL</td></tr>
-        <tr><td>C</td><td>2</td><td>&lt; 150 mL</td><td>&lt; 150 mL</td></tr>
+        <tr><th>Grade</th><th>Acceptable</th><th>FVC diff</th><th>FEV₁ diff</th></tr>
+        <tr><td>A</td><td>≥ 3</td><td>&lt;100 mL</td><td>&lt;100 mL</td></tr>
+        <tr><td>B</td><td>≥ 3</td><td>&lt;150 mL</td><td>&lt;150 mL</td></tr>
+        <tr><td>C</td><td>2</td><td>&lt;150 mL</td><td>&lt;150 mL</td></tr>
         <tr><td>D</td><td>2</td><td colspan="2">Repeatability not met</td></tr>
         <tr><td>E</td><td>1</td><td colspan="2">—</td></tr>
-        <tr><td>F</td><td>0 (no usable either)</td><td colspan="2">—</td></tr>
-        <tr><td>U</td><td>0 acceptable, ≥1 usable</td><td colspan="2">—</td></tr>
+        <tr><td>F</td><td>0 (none usable)</td><td colspan="2">—</td></tr>
+        <tr><td>U</td><td>0, ≥1 usable</td><td colspan="2">—</td></tr>
       </table>
     </div>
   </div>
 
   <button class="btn" id="runBtn" disabled>Assess QC against ATS/ERS 2019</button>
-
   <div class="prog-wrap" id="progWrap">
     <div class="prog"><div class="prog-fill" id="pf"></div></div>
     <div class="stat" id="stat"></div>
   </div>
   <div class="err-box" id="err"></div>
 
-  <!-- results -->
   <div class="results" id="res">
     <div id="gradeBanner"></div>
-
     <div class="tabs">
       <button class="tab on" onclick="tab('maneuvers',this)">Maneuvers</button>
       <button class="tab" onclick="tab('graphs',this)">Graph QC</button>
       <button class="tab" onclick="tab('repeat',this)">Repeatability</button>
       <button class="tab" onclick="tab('recs',this)">Action items</button>
+      <button class="tab" onclick="exportPDF()" style="margin-left:auto;color:var(--teal);">Export PDF</button>
     </div>
-
     <div id="pane-maneuvers">
       <div class="slabel">Per-maneuver acceptability — all 7 ATS/ERS 2019 criteria</div>
       <div class="man-list" id="manGrid"></div>
@@ -324,199 +326,261 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
     <div id="pane-repeat" style="display:none">
       <div class="slabel">Between-maneuver repeatability</div>
       <div class="rep-grid" id="repGrid"></div>
-      <div class="rep-note" id="repNote"></div>
+      <div class="rep-note-txt" id="repNote"></div>
     </div>
     <div id="pane-recs" style="display:none">
       <div class="slabel">Action items for operator / re-test</div>
       <div class="rec-list" id="recList"></div>
     </div>
-
-    <div class="foot">
-      Quality control only · ATS/ERS 2019 (Graham et al., Am J Respir Crit Care Med 2019;200:e70–e88)<br/>
-      Not a substitute for clinical judgement · Vamsipedia® Precision Pulmonary Diagnostics
-    </div>
+    <div class="foot">Quality control only · ATS/ERS 2019 (Graham et al., Am J Respir Crit Care Med 2019;200:e70–e88)<br/>Not a substitute for clinical judgement · Precision Pulmonary Diagnostics · Vamsipedia®</div>
   </div>
-
-</div><!-- /page -->
+</div>
+</div>
 
 <script>
-const dz=document.getElementById('dz'),fi=document.getElementById('fi'),thumbsEl=document.getElementById('thumbs');
-const runBtn=document.getElementById('runBtn'),progWrap=document.getElementById('progWrap'),pf=document.getElementById('pf');
-const statEl=document.getElementById('stat'),errBox=document.getElementById('err'),res=document.getElementById('res');
-let imgs=[];
+let sessionCode = '';
 
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('over');});
-dz.addEventListener('dragleave',()=>dz.classList.remove('over'));
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('over');addFiles(e.dataTransfer.files);});
-fi.addEventListener('change',e=>addFiles(e.target.files));
-
-function addFiles(files){
-  Array.from(files).forEach(f=>{
-    const r=new FileReader();
-    r.onload=e=>{imgs.push({name:f.name,type:f.type,data:e.target.result});renderThumb(imgs.length-1);runBtn.disabled=false;};
-    r.readAsDataURL(f);
-  });
-}
-function renderThumb(i){
-  const f=imgs[i];const el=document.createElement('div');
-  if(f.type.startsWith('image/')){
-    el.className='thumb';
-    el.innerHTML=`<img src="${f.data}" alt="${f.name}"><button class="thumb-rm" onclick="removeImg(${i})">×</button>`;
-    thumbsEl.appendChild(el);
-  } else {
-    el.className='fbadge';
-    el.innerHTML=`<span>pdf</span><span>${f.name.substring(0,18)}</span><button style="background:none;border:none;cursor:pointer;font-size:12px;color:#888;margin-left:4px" onclick="removeImg(${i})">×</button>`;
-    thumbsEl.appendChild(el);
+async function unlock() {
+  const code = document.getElementById('codeInput').value.trim();
+  const btn = document.getElementById('lockBtn');
+  const errEl = document.getElementById('lockErr');
+  if (!code) { errEl.textContent = 'Please enter the access code.'; return; }
+  btn.disabled = true; btn.textContent = 'Checking…'; errEl.textContent = '';
+  try {
+    const r = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ accessCode: code, model: 'claude-sonnet-4-20250514', max_tokens: 5, messages: [{ role: 'user', content: 'ping' }] })
+    });
+    if (r.status === 401) {
+      errEl.textContent = 'Incorrect access code — try again.';
+      btn.disabled = false; btn.textContent = 'Continue'; return;
+    }
+    sessionCode = code;
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('appShell').style.display = 'block';
+  } catch(e) {
+    errEl.textContent = 'Network error — check your connection.';
+    btn.disabled = false; btn.textContent = 'Continue';
   }
 }
-function removeImg(i){imgs.splice(i,1);thumbsEl.innerHTML='';const c=[...imgs];imgs=[];c.forEach((_,j)=>renderThumb(j));runBtn.disabled=imgs.length===0;}
-function toggleRef(){const b=document.getElementById('refBody'),a=document.getElementById('refArr');b.classList.toggle('open');a.textContent=b.classList.contains('open')?'▾':'▸';}
-function tab(name,btn){['maneuvers','graphs','repeat','recs'].forEach(t=>{document.getElementById('pane-'+t).style.display=t===name?'':'none';});document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
-function sp(p,m){pf.style.width=p+'%';statEl.textContent=m;}
 
-const SYSTEM=`You are a spirometry quality control specialist applying ONLY ATS/ERS 2019 Technical Statement QC criteria (Graham et al., Am J Respir Crit Care Med 2019;200:e70-e88).
+const dz = document.getElementById('dz'), fi = document.getElementById('fi'), thumbsEl = document.getElementById('thumbs');
+let imgs = [];
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('over'); addFiles(e.dataTransfer.files); });
+fi.addEventListener('change', e => addFiles(e.target.files));
 
-DO NOT interpret spirometry. NO reference equations, NO % predicted, NO pattern diagnosis. ONLY QC.
+function addFiles(files) {
+  Array.from(files).forEach(f => {
+    if (f.type === 'application/pdf') {
+      const r = new FileReader();
+      r.onload = e => { imgs.push({ name: f.name, type: f.type, data: e.target.result }); renderThumb(imgs.length-1); document.getElementById('runBtn').disabled = false; };
+      r.readAsDataURL(f);
+    } else {
+      const r = new FileReader();
+      r.onload = e => {
+        const image = new Image();
+        image.onload = () => {
+          const MAX_BYTES = 3.8 * 1024 * 1024;
+          const canvas = document.createElement('canvas');
+          let w = image.width, h = image.height;
+          if (w > 2400) { h = Math.round(h * 2400 / w); w = 2400; }
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(image, 0, 0, w, h);
+          let q = 0.90;
+          let dataUrl = canvas.toDataURL('image/jpeg', q);
+          while (dataUrl.length * 0.75 > MAX_BYTES && q > 0.5) {
+            q -= 0.08;
+            dataUrl = canvas.toDataURL('image/jpeg', q);
+          }
+          imgs.push({ name: f.name, type: 'image/jpeg', data: dataUrl });
+          renderThumb(imgs.length - 1);
+          document.getElementById('runBtn').disabled = false;
+        };
+        image.src = e.target.result;
+      };
+      r.readAsDataURL(f);
+    }
+  });
+}
+function renderThumb(i) {
+  const f = imgs[i]; const el = document.createElement('div');
+  if (f.type.startsWith('image/')) { el.className='thumb'; el.innerHTML=`<img src="${f.data}"><button class="thumb-rm" onclick="removeImg(${i})">×</button>`; }
+  else { el.className='fbadge'; el.innerHTML=`<span>pdf</span><span>${f.name.substring(0,18)}</span><button style="background:none;border:none;cursor:pointer;font-size:12px;color:#888;margin-left:4px" onclick="removeImg(${i})">×</button>`; }
+  thumbsEl.appendChild(el);
+}
+function removeImg(i) { imgs.splice(i,1); thumbsEl.innerHTML=''; const c=[...imgs]; imgs=[]; c.forEach((_,j)=>renderThumb(j)); document.getElementById('runBtn').disabled=imgs.length===0; }
+function toggleRef() { const b=document.getElementById('refBody'),a=document.getElementById('refArr'); b.classList.toggle('open'); a.textContent=b.classList.contains('open')?'▾':'▸'; }
+function tab(name,btn) { ['maneuvers','graphs','repeat','recs'].forEach(t=>{document.getElementById('pane-'+t).style.display=t===name?'':'none';}); document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); }
+function sp(p,m) { document.getElementById('pf').style.width=p+'%'; document.getElementById('stat').textContent=m; }
 
+const SYSTEM=`You are a spirometry quality control specialist applying ONLY ATS/ERS 2019 Technical Statement QC criteria (Graham et al., Am J Respir Crit Care Med 2019;200:e70-e88). DO NOT interpret spirometry. NO reference equations, NO % predicted, NO pattern diagnosis. ONLY QC.
 ACCEPTABILITY — 7 criteria per maneuver:
 1. Good start (BEV): BEV ≤5% FVC or ≤0.100 L (whichever GREATER). BEV >0.150 L = neither acceptable nor usable.
-2. Hesitation time ≤2 s: from maximal inspiration to time-zero.
+2. Hesitation time ≤2 s.
 3. No cough in first second: invalidates FEV1.
 4. No early termination / glottis closure.
-5. Satisfactory EOFE: plateau ΔV <0.025 L in last 1 s — OR patient cannot continue AND FVC ≥ largest prior FVC within repeatability tolerance. IMPORTANT: minimum 6 s FET is NO LONGER required in 2019 standard.
+5. Satisfactory EOFE — CRITICAL: FET duration ALONE does NOT satisfy this criterion. Assess the VT CURVE MORPHOLOGY:
+   TRUE PLATEAU (pass): The VT curve shows a gradual deceleration and smooth approach to horizontal — volume increase progressively slows to near-zero over the final seconds of ACTIVE exhalation. ΔV <0.025 L in the last 1 second of genuine exhalation. The curve must show continuous exhalation decelerating to a flat line.
+   ABRUPT FLAT LINE (fail — criterion 4 AND 5): If the VT curve shows a rapid rise then ABRUPTLY becomes horizontal (vertical cliff → flat line), this is early termination or glottis closure — NOT a plateau. The patient stopped exhaling suddenly. A long FET recorded after this point is dead time (patient sitting with mouthpiece), NOT exhalation time. This is a CRITERION 4 FAIL (early termination) AND CRITERION 5 FAIL. Do NOT be fooled by a high FET value in this scenario.
+   SHORT FET with genuine plateau (pass): A short FET (e.g. 3-4s) with a smooth gradual approach to plateau IS acceptable if the curve morphology confirms true deceleration to near-zero flow — this is common in restriction.
+   SUMMARY RULE: Look at the VT curve shape, not just the FET number. Smooth deceleration = plateau = pass. Abrupt flat line = early stop = fail criteria 4 and 5.
 6. No leak.
-7. Maximal effort throughout. Absence of inspiratory maneuver alone does not fail unless extrathoracic obstruction assessed.
+7. Maximal effort. Absence of inspiratory limb alone does not fail.
+USABLE: meets criteria 1 AND 2 only.
+REPEATABILITY: Age >6 yr: diff 2 largest FVC <150 mL AND FEV1 <150 mL. Age ≤6: <100 mL or 10%.
+GRADING: A=≥3 acceptable,<100mL both; B=≥3,<150mL; C=2,<150mL; D=2,not repeatable; E=1; F=0 acceptable+usable; U=0 acceptable,≥1 usable.
+GRAPH QC:
+FV loop: rapid peak, smooth descent, no scooping (variable effort), no serration (cough/glottis), no truncation, inspiratory limb quality.
+VT curve — CRITICAL DISTINCTION:
+- NORMAL: rapid rise → smooth progressive deceleration → gradual approach to horizontal plateau maintained for ≥1 s. The curve flattens gradually, not abruptly.
+- EARLY TERMINATION (criterion 4+5 fail): rapid rise → ABRUPT horizontal flat line (looks like a right-angle corner on the curve). No gradual deceleration. Patient stopped exhaling suddenly. Even if FET appears long, the active exhalation ended at the corner.
+- RESTRICTIVE PATTERN (acceptable): rapid rise → early plateau but with smooth deceleration approach. Short FET with genuine plateau is acceptable.
+- OBSTRUCTIVE PATTERN (acceptable): slow rise → very gradual long approach to plateau over many seconds. Long FET expected.
+Always describe the VT curve shape explicitly — abrupt vs gradual flattening.
+OCR: extract FVC and FEV1 per maneuver, FET if visible. Raw values only.
+Return ONLY valid JSON, no markdown:
+{"overallGrade":"A|B|C|D|E|F|U","gradeRationale":"","acceptableCount":0,"usableCount":0,"maneuvers":[{"number":1,"status":"acceptable|usable|rejected","FVC_L":null,"FEV1_L":null,"FET_s":null,"criteria":{"c1_goodStart":{"pass":true,"BEV_L":null,"note":""},"c2_hesitation":{"pass":true,"hesitation_s":null,"note":""},"c3_noCough":{"pass":true,"note":""},"c4_noEarlyTermination":{"pass":true,"note":""},"c5_EOFE":{"pass":true,"plateauAchieved":true,"FET_s":null,"note":""},"c6_noLeak":{"pass":true,"note":""},"c7_maximalEffort":{"pass":true,"note":""}}}],"repeatability":{"FVC_largest1_L":null,"FVC_largest2_L":null,"FVC_diff_mL":null,"FVC_threshold_mL":150,"FVC_repeatable":null,"FEV1_largest1_L":null,"FEV1_largest2_L":null,"FEV1_diff_mL":null,"FEV1_threshold_mL":150,"FEV1_repeatable":null,"note":""},"graphQC":{"flowVolumeLoop":{"rapidPeakEffort":true,"smoothLinearDescent":true,"noScooping":true,"noSerration":true,"noEarlyTermination":true,"inspiratoryLimbPresent":true,"inspiratoryLimbSmooth":true,"morphologySummary":"normal|variable_effort|scooped|serrated|truncated|cannot_assess","findings":""},"volumeTimeCurve":{"rapidSmoothAscent":true,"plateauOrProgressiveApproach":true,"noAbruptTermination":true,"noStartHesitation":true,"findings":""},"canAssessGraphs":true,"graphNotes":""},"actionItems":[{"priority":"high|medium|low","text":""}],"dataExtractionConfidence":"high|medium|low","extractionNotes":""}`;
 
-USABLE: meets criteria 1 AND 2 only. Even if 3-7 fail.
-
-REPEATABILITY: Age >6 yr: diff 2 largest FVC <150 mL AND 2 largest FEV1 <150 mL. Age ≤6: <100 mL or 10% highest, whichever greater.
-
-GRADING:
-A: ≥3 acceptable, best-2 FVC diff <100 mL AND best-2 FEV1 diff <100 mL
-B: ≥3 acceptable, both diffs <150 mL
-C: 2 acceptable, both diffs <150 mL
-D: 2 acceptable, repeatability not met
-E: 1 acceptable
-F: 0 acceptable AND 0 usable
-U: 0 acceptable, ≥1 usable
-
-GRAPH QC (not diagnostic): assess flow-volume loop for rapid peak, smooth linear descent, no scooping (variable effort), no serration (cough/glottis artifact), no premature termination, inspiratory limb quality. Assess volume-time curve for smooth rapid ascent, plateau, no abrupt stop, no start hesitation.
-
-OCR: extract FVC and FEV1 per maneuver and FET if visible. Raw values only.
-
-Return ONLY valid JSON, no markdown, no explanation:
-{"overallGrade":"A|B|C|D|E|F|U","gradeRationale":"","acceptableCount":0,"usableCount":0,"paediatric":false,"maneuvers":[{"number":1,"status":"acceptable|usable|rejected","FVC_L":null,"FEV1_L":null,"FET_s":null,"criteria":{"c1_goodStart":{"pass":true,"BEV_L":null,"note":""},"c2_hesitation":{"pass":true,"hesitation_s":null,"note":""},"c3_noCough":{"pass":true,"note":""},"c4_noEarlyTermination":{"pass":true,"note":""},"c5_EOFE":{"pass":true,"plateauAchieved":true,"FET_s":null,"note":""},"c6_noLeak":{"pass":true,"note":""},"c7_maximalEffort":{"pass":true,"note":""}}}],"repeatability":{"FVC_largest1_L":null,"FVC_largest2_L":null,"FVC_diff_mL":null,"FVC_threshold_mL":150,"FVC_repeatable":null,"FEV1_largest1_L":null,"FEV1_largest2_L":null,"FEV1_diff_mL":null,"FEV1_threshold_mL":150,"FEV1_repeatable":null,"note":""},"graphQC":{"flowVolumeLoop":{"rapidPeakEffort":true,"smoothLinearDescent":true,"noScooping":true,"noSerration":true,"noEarlyTermination":true,"inspiratoryLimbPresent":true,"inspiratoryLimbSmooth":true,"adequateVolumeAchieved":true,"morphologySummary":"normal|variable_effort|scooped|serrated|truncated|cannot_assess","findings":""},"volumeTimeCurve":{"rapidSmoothAscent":true,"plateauOrProgressiveApproach":true,"noAbruptTermination":true,"noStartHesitation":true,"noVariableEffort":true,"findings":""},"canAssessGraphs":true,"graphNotes":""},"actionItems":[{"priority":"high|medium|low","text":""}],"dataExtractionConfidence":"high|medium|low","extractionNotes":""}`;
-
-runBtn.addEventListener('click',async()=>{
-  const key=document.getElementById('apiKey').value.trim();
-  if(!key){errBox.textContent='Please enter your Anthropic API key above.';errBox.style.display='block';return;}
-  if(!imgs.length){errBox.textContent='Please upload at least one spirometry report image.';errBox.style.display='block';return;}
-  errBox.style.display='none';res.style.display='none';
-  progWrap.style.display='block';runBtn.disabled=true;
-  sp(10,'Sending to Claude vision API...');
-
+document.getElementById('runBtn').addEventListener('click', async () => {
+  if (!imgs.length) return;
+  const errBox=document.getElementById('err'); errBox.style.display='none';
+  document.getElementById('res').style.display='none';
+  document.getElementById('progWrap').style.display='block';
+  document.getElementById('runBtn').disabled=true;
+  sp(10,'Sending to secure proxy…');
   const peds=document.getElementById('peds').value==='yes';
   const age=document.getElementById('age').value||'not specified';
   const content=[];
-
-  for(const img of imgs){
-    const b64=img.data.split(',')[1];
-    let mt=img.type;
-    if(!['image/jpeg','image/png','image/gif','image/webp','application/pdf'].includes(mt)) mt='image/jpeg';
-    content.push(mt==='application/pdf'
-      ?{type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}}
-      :{type:'image',source:{type:'base64',media_type:mt,data:b64}});
+  for (const img of imgs) {
+    const b64=img.data.split(',')[1]; let mt=img.type;
+    if (!['image/jpeg','image/png','image/gif','image/webp','application/pdf'].includes(mt)) mt='image/jpeg';
+    content.push(mt==='application/pdf'?{type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}}:{type:'image',source:{type:'base64',media_type:mt,data:b64}});
   }
-  content.push({type:'text',text:`Patient age: ${age} yr. Paediatric criteria (<6 yr): ${peds}. Apply ATS/ERS 2019 QC criteria only. Extract all maneuver FVC and FEV1 values via OCR. Return JSON only.`});
-
-  try{
-    sp(30,'Analysing graphs and extracting values via OCR...');
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-calls':'true'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,system:SYSTEM,messages:[{role:'user',content}]})
-    });
-    sp(75,'Applying ATS/ERS 2019 grading criteria...');
+  content.push({type:'text',text:`Patient age: ${age} yr. Paediatric (<6 yr): ${peds}. ATS/ERS 2019 QC only. Return JSON only.`});
+  try {
+    sp(30,'Analysing graphs and extracting values…');
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({accessCode:sessionCode,model:'claude-sonnet-4-20250514',max_tokens:4000,system:SYSTEM,messages:[{role:'user',content}]})});
+    sp(75,'Applying ATS/ERS 2019 grading…');
     const d=await r.json();
-    if(d.error) throw new Error(d.error.message);
+    if (d.error) throw new Error(typeof d.error==='object'?d.error.message:d.error);
     const txt=d.content.map(b=>b.text||'').join('');
-    const m=txt.match(/\{[\s\S]*\}/);
-    if(!m) throw new Error('No valid JSON in AI response. Try uploading a clearer image.');
+    const m=txt.match(/\{[\s\S]*\}/); if (!m) throw new Error('No valid JSON. Try a clearer image.');
     const qc=JSON.parse(m[0]);
-    sp(100,'Done.');
-    setTimeout(()=>{progWrap.style.display='none';},600);
+    sp(100,'Done.'); setTimeout(()=>{document.getElementById('progWrap').style.display='none';},500);
     render(qc);
-    res.style.display='block';
-    res.scrollIntoView({behavior:'smooth',block:'start'});
-    runBtn.disabled=false;
-  }catch(e){
-    progWrap.style.display='none';
-    errBox.textContent='Error: '+e.message;errBox.style.display='block';
-    runBtn.disabled=false;
+    logToSheets(qc, age);
+    document.getElementById('res').style.display='block';
+    document.getElementById('res').scrollIntoView({behavior:'smooth',block:'start'});
+    document.getElementById('runBtn').disabled=false;
+  } catch(e) {
+    document.getElementById('progWrap').style.display='none';
+    errBox.textContent='Error: '+e.message; errBox.style.display='block';
+    document.getElementById('runBtn').disabled=false;
   }
 });
 
-function render(qc){
+function render(qc) {
   const g=qc.overallGrade||'U';
   const names={A:'Excellent',B:'Good',C:'Acceptable',D:'Borderline',E:'Poor',F:'Unacceptable',U:'Usable only'};
-  const descs={A:'≥3 acceptable · best-2 FVC &amp; FEV₁ each within 100 mL',B:'≥3 acceptable · best-2 FVC &amp; FEV₁ each within 150 mL',C:'2 acceptable · best-2 FVC &amp; FEV₁ each within 150 mL',D:'2 acceptable · repeatability not met',E:'1 acceptable maneuver only',F:'No acceptable or usable maneuvers',U:'No acceptable maneuvers · ≥1 usable present'};
-  const canReport=g!=='F';
-  document.getElementById('gradeBanner').innerHTML=`<div class="grade-banner g${g}"><div class="grade-letter">${g}</div><div class="grade-info"><div class="grade-tag">ATS/ERS 2019 Quality Grade</div><div class="grade-name">${names[g]||g} — ${qc.acceptableCount??'?'} acceptable · ${qc.usableCount??0} usable</div><div class="grade-desc">${descs[g]||''}</div>${qc.gradeRationale?`<div class="grade-rationale">${qc.gradeRationale}</div>`:''}</div><span class="report-pill">${canReport?'✓ reportable':'✗ not reportable'}</span></div>`;
+  const descs={A:'≥3 acceptable · best-2 FVC &amp; FEV₁ within 100 mL',B:'≥3 acceptable · best-2 within 150 mL',C:'2 acceptable · best-2 within 150 mL',D:'2 acceptable · repeatability not met',E:'1 acceptable maneuver only',F:'No acceptable or usable maneuvers',U:'No acceptable · ≥1 usable present'};
+  document.getElementById('gradeBanner').innerHTML=`<div class="grade-banner g${g}"><div class="grade-letter">${g}</div><div class="grade-info"><div class="grade-tag">ATS/ERS 2019 Quality Grade</div><div class="grade-name">${names[g]||g} — ${qc.acceptableCount??'?'} acceptable · ${qc.usableCount??0} usable</div><div class="grade-desc">${descs[g]||''}</div>${qc.gradeRationale?`<div class="grade-rationale">${qc.gradeRationale}</div>`:''}</div><span class="report-pill">${g!=='F'?'✓ reportable':'✗ not reportable'}</span></div>`;
 
-  const mg=document.getElementById('manGrid');mg.innerHTML='';
-  const cLabels=['Good start (BEV)','Hesitation ≤2 s','No cough in 1st second','No early termination / glottis closure','Satisfactory EOFE','No leak','Maximal effort throughout'];
-  const cKeys=['c1_goodStart','c2_hesitation','c3_noCough','c4_noEarlyTermination','c5_EOFE','c6_noLeak','c7_maximalEffort'];
+  const mg=document.getElementById('manGrid'); mg.innerHTML='';
+  const cL=['Good start (BEV)','Hesitation ≤2 s','No cough in 1st second','No early termination / glottis closure','Satisfactory EOFE','No leak','Maximal effort throughout'];
+  const cK=['c1_goodStart','c2_hesitation','c3_noCough','c4_noEarlyTermination','c5_EOFE','c6_noLeak','c7_maximalEffort'];
   (qc.maneuvers||[]).forEach(m=>{
-    const s=m.status;
-    const pill=s==='acceptable'?'pill-acc':s==='usable'?'pill-use':s==='rejected'?'pill-rej':'pill-unk';
+    const s=m.status, pill=s==='acceptable'?'pill-acc':s==='usable'?'pill-use':s==='rejected'?'pill-rej':'pill-unk';
     const pt=s==='acceptable'?'Acceptable':s==='usable'?'Usable (criteria 1+2 only)':s==='rejected'?'Rejected':'Unknown';
-    const c=m.criteria||{};
-    let rows='';
-    cKeys.forEach((k,i)=>{
-      const cr=c[k];if(!cr)return;
-      const p=cr.pass;
-      const cls=p===true?'cd-pass':p===false?'cd-fail':'cd-unk';
-      const sym=p===true?'✓':p===false?'✗':'?';
+    const c=m.criteria||{}; let rows='';
+    cK.forEach((k,i)=>{
+      const cr=c[k]; if(!cr) return;
+      const cls=cr.pass===true?'cd-pass':cr.pass===false?'cd-fail':'cd-unk';
+      const sym=cr.pass===true?'✓':cr.pass===false?'✗':'?';
       let note='';
       if(k==='c1_goodStart'&&cr.BEV_L!=null) note=`BEV: ${(cr.BEV_L*1000).toFixed(0)} mL`;
       if(k==='c2_hesitation'&&cr.hesitation_s!=null) note=`${cr.hesitation_s} s`;
-      if(k==='c5_EOFE'){if(cr.FET_s!=null) note=`FET ${cr.FET_s} s`;if(cr.plateauAchieved) note+=(note?' · ':'')+'plateau ✓';}
+      if(k==='c5_EOFE'){if(cr.FET_s!=null)note=`FET ${cr.FET_s} s`;if(cr.plateauAchieved)note+=(note?' · ':'')+'plateau ✓';}
       if(cr.note) note=note?(note+' — '+cr.note):cr.note;
-      rows+=`<div class="crit-row"><div class="crit-dot ${cls}">${sym}</div><span class="crit-label">${cLabels[i]}</span></div>${note?`<div class="crit-note">${note}</div>`:''}`;
+      rows+=`<div class="crit-row"><div class="crit-dot ${cls}">${sym}</div><span class="crit-label">${cL[i]}</span></div>${note?`<div class="crit-note">${note}</div>`:''}`;
     });
-    mg.innerHTML+=`<div class="man-card"><div class="man-hdr"><span class="man-n">Maneuver ${m.number}</span><span class="man-pill ${pill}">${pt}</span><span class="man-vals">${m.FVC_L!=null?'FVC '+m.FVC_L.toFixed(2)+'L':''}${m.FEV1_L!=null?' · FEV₁ '+m.FEV1_L.toFixed(2)+'L':''}${m.FET_s!=null?' · FET '+m.FET_s+'s':''}</span></div><div class="man-body">${rows||'<span style="font-size:12px;color:#888">Criteria not extractable — upload a higher resolution image</span>'}</div></div>`;
+    mg.innerHTML+=`<div class="man-card"><div class="man-hdr"><span class="man-n">Maneuver ${m.number}</span><span class="man-pill ${pill}">${pt}</span><span class="man-vals">${m.FVC_L!=null?'FVC '+m.FVC_L.toFixed(2)+'L':''}${m.FEV1_L!=null?' · FEV₁ '+m.FEV1_L.toFixed(2)+'L':''}${m.FET_s!=null?' · FET '+m.FET_s+'s':''}</span></div><div class="man-body">${rows||'<span style="font-size:12px;color:#888">Upload a higher resolution image for full criteria extraction</span>'}</div></div>`;
   });
 
-  const gl=document.getElementById('graphList');gl.innerHTML='';
-  const gqc=qc.graphQC||{};const fvl=gqc.flowVolumeLoop||{};const vtc=gqc.volumeTimeCurve||{};
-  if(!gqc.canAssessGraphs){
-    gl.innerHTML='<div class="graph-row"><span class="graph-scope">Note</span><span class="graph-text">Graphs not clearly visible — upload a clearer scan including both flow-volume loop and volume-time curve</span><span class="graph-flag gf-na">N/A</span></div>';
-  } else {
+  const gl=document.getElementById('graphList'); gl.innerHTML='';
+  const gqc=qc.graphQC||{},fvl=gqc.flowVolumeLoop||{},vtc=gqc.volumeTimeCurve||{};
+  if(!gqc.canAssessGraphs){gl.innerHTML='<div class="graph-row"><span class="graph-scope">Note</span><span class="graph-text">Graphs not visible — upload a clearer image with both FV loop and VT curve</span><span class="graph-flag gf-na">N/A</span></div>';}
+  else{
     const mc=fvl.morphologySummary==='normal'?'gf-ok':fvl.morphologySummary==='cannot_assess'?'gf-na':'gf-abn';
     gl.innerHTML+=`<div class="graph-row"><span class="graph-scope">FV loop</span><span class="graph-text">${fvl.findings||'Flow-volume loop assessed'}</span><span class="graph-flag ${mc}">${(fvl.morphologySummary||'?').replace(/_/g,' ')}</span></div>`;
-    [['Rapid peak effort',fvl.rapidPeakEffort,'Expected: sharp rise to peak flow'],['Smooth descent',fvl.smoothLinearDescent,'Expected: linear or slightly convex'],['No scooping',fvl.noScooping,'Scooping = variable effort or obstruction artefact'],['No serration',fvl.noSerration,'Serration = cough, glottis closure, or instrument artefact'],['No truncation',fvl.noEarlyTermination,'Premature termination fails criterion 4'],['Inspiratory limb',fvl.inspiratoryLimbPresent&&fvl.inspiratoryLimbSmooth,'Smooth inspiratory limb confirms maximal effort cycle']].forEach(([lbl,v,hint])=>{
+    [['Rapid peak',fvl.rapidPeakEffort,'Sharp rise to peak flow'],['Smooth descent',fvl.smoothLinearDescent,'Linear or slightly convex'],['No scooping',fvl.noScooping,'Scooping = variable effort artefact'],['No serration',fvl.noSerration,'Serration = cough or glottis closure'],['No truncation',fvl.noEarlyTermination,'Premature stop fails criterion 4'],['Insp. limb',fvl.inspiratoryLimbPresent&&fvl.inspiratoryLimbSmooth,'Smooth inspiratory limb']].forEach(([lbl,v,hint])=>{
       if(v==null) return;
-      gl.innerHTML+=`<div class="graph-row"><span class="graph-scope">${lbl}</span><span class="graph-text" style="color:${v?'#5F5E5A':'var(--red)'}">${v?hint:'QC concern — '+hint.toLowerCase()}</span><span class="graph-flag ${v?'gf-ok':'gf-abn'}">${v?'ok':'fail'}</span></div>`;
+      gl.innerHTML+=`<div class="graph-row"><span class="graph-scope">${lbl}</span><span class="graph-text" style="color:${v?'var(--text2)':'var(--red)'}">${v?hint:'QC concern — '+hint.toLowerCase()}</span><span class="graph-flag ${v?'gf-ok':'gf-abn'}">${v?'ok':'fail'}</span></div>`;
     });
-    if(vtc.findings) gl.innerHTML+=`<div class="graph-row"><span class="graph-scope">VT curve</span><span class="graph-text">${vtc.findings}</span><span class="graph-flag ${vtc.plateauOrProgressiveApproach&&vtc.rapidSmoothAscent?'gf-ok':'gf-warn'}">${vtc.plateauOrProgressiveApproach?'ok':'review'}</span></div>`;
+    if(vtc.findings) gl.innerHTML+=`<div class="graph-row"><span class="graph-scope">VT curve</span><span class="graph-text">${vtc.findings}</span><span class="graph-flag ${vtc.plateauOrProgressiveApproach?'gf-ok':'gf-warn'}">${vtc.plateauOrProgressiveApproach?'ok':'review'}</span></div>`;
     if(gqc.graphNotes) gl.innerHTML+=`<div class="graph-row"><span class="graph-scope">Notes</span><span class="graph-text">${gqc.graphNotes}</span><span class="graph-flag gf-na">info</span></div>`;
   }
-  if(qc.dataExtractionConfidence&&qc.dataExtractionConfidence!=='high') gl.innerHTML+=`<div class="graph-row"><span class="graph-scope">OCR</span><span class="graph-text">${qc.extractionNotes||'Some values unclear — higher resolution image recommended'}</span><span class="graph-flag gf-warn">${qc.dataExtractionConfidence} conf.</span></div>`;
+  if(qc.dataExtractionConfidence&&qc.dataExtractionConfidence!=='high') gl.innerHTML+=`<div class="graph-row"><span class="graph-scope">OCR</span><span class="graph-text">${qc.extractionNotes||'Higher resolution image recommended'}</span><span class="graph-flag gf-warn">${qc.dataExtractionConfidence} conf.</span></div>`;
 
-  const rg=document.getElementById('repGrid');rg.innerHTML='';
+  const rg=document.getElementById('repGrid'); rg.innerHTML='';
   const rep=qc.repeatability||{};
   ['FVC','FEV1'].forEach(p=>{
     const diff=rep[p+'_diff_mL'],thr=rep[p+'_threshold_mL'],pass=rep[p+'_repeatable'];
     const l1=rep[p+'_largest1_L'],l2=rep[p+'_largest2_L'];
-    const label=p==='FEV1'?'FEV₁':'FVC';
     const cls=pass===true?'rv-pass':pass===false?'rv-fail':'rv-unk';
-    rg.innerHTML+=`<div class="rep-card"><div class="rep-param">${label} repeatability</div><div class="rep-val ${cls}">${diff!=null?diff+' mL':'—'}</div><div class="rep-thresh">Threshold: &lt;${thr??'?'} mL &nbsp;·&nbsp; ${pass===true?'✓ Met':pass===false?'✗ Not met':'?'}</div>${l1!=null&&l2!=null?`<div class="rep-pair">${l1.toFixed(2)} vs ${l2.toFixed(2)} L</div>`:''}</div>`;
+    rg.innerHTML+=`<div class="rep-card"><div class="rep-param">${p==='FEV1'?'FEV₁':'FVC'} repeatability</div><div class="rep-val ${cls}">${diff!=null?diff+' mL':'—'}</div><div class="rep-thresh">Threshold: &lt;${thr??'?'} mL · ${pass===true?'✓ Met':pass===false?'✗ Not met':'?'}</div>${l1!=null&&l2!=null?`<div class="rep-pair">${l1.toFixed(2)} vs ${l2.toFixed(2)} L</div>`:''}</div>`;
   });
   if(rep.note) document.getElementById('repNote').textContent=rep.note;
 
-  const rl=document.getElementById('recList');rl.innerHTML='';
+  const rl=document.getElementById('recList'); rl.innerHTML='';
   (qc.actionItems||[]).forEach(r=>{const cls=r.priority==='high'?'rh':r.priority==='medium'?'rm':'rl';rl.innerHTML+=`<div class="rec-row ${cls}"><span class="rec-pri">${r.priority}</span><span class="rec-txt">${r.text}</span></div>`;});
   if(!qc.actionItems?.length) rl.innerHTML='<div style="font-size:12px;color:#888">No specific action items identified</div>';
+}
+
+async function logToSheets(qc, age) {
+  if (!SHEETS_URL || SHEETS_URL.includes('YOUR_APPS_SCRIPT')) return;
+  try {
+    const rep = qc.repeatability || {};
+    const fvl = (qc.graphQC || {}).flowVolumeLoop || {};
+    const topAction = (qc.actionItems || [])[0];
+    const payload = {
+      patientAge: age || '—',
+      grade: qc.overallGrade,
+      acceptableCount: qc.acceptableCount,
+      usableCount: qc.usableCount,
+      reportable: qc.overallGrade !== 'F',
+      fvcBest: qc.repeatability?.FVC_largest1_L ?? null,
+      fev1Best: qc.repeatability?.FEV1_largest1_L ?? null,
+      fvcRepeatMl: rep.FVC_diff_mL ?? null,
+      fev1RepeatMl: rep.FEV1_diff_mL ?? null,
+      fvcRepeatable: rep.FVC_repeatable,
+      fev1Repeatable: rep.FEV1_repeatable,
+      graphMorphology: fvl.morphologySummary || '—',
+      ocrConfidence: qc.dataExtractionConfidence || '—',
+      topActionItem: topAction ? topAction.priority + ': ' + topAction.text : '—',
+      gradeRationale: qc.gradeRationale || '—',
+      device: navigator.userAgent.includes('Mobile') ? 'mobile' : 'desktop'
+    };
+    await fetch(SHEETS_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  } catch(e) {
+    console.log('Sheet logging failed silently:', e.message);
+  }
+}
+function exportPDF() {
+  ['pane-maneuvers','pane-graphs','pane-repeat','pane-recs'].forEach(id => {
+    document.getElementById(id).style.display = '';
+  });
+  const date = new Date().toLocaleDateString('en-IN', {day:'2-digit',month:'short',year:'numeric'});
+  document.title = 'SpirometryQC_' + date;
+  window.print();
+  setTimeout(() => {
+    tab('maneuvers', document.querySelector('.tab'));
+  }, 500);
 }
 </script>
 </body>
