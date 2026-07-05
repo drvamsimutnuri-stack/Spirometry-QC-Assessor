@@ -467,7 +467,7 @@ document.getElementById('runBtn').addEventListener('click', async () => {
     sp(75,'Applying ATS/ERS 2019 grading…');
     const d=await r.json();
     if (d.error) throw new Error(typeof d.error==='object'?d.error.message:d.error);
-    const txt=d.content.map(b=>b.text||'').join('');
+    const txt=(d.content||[]).filter(b=>b.type==='text'||typeof b.text==='string').map(b=>b.text||'').join('').replace(/```json/gi,'').replace(/```/g,'').trim();
     const m=txt.match(/\{[\s\S]*\}/); if (!m) throw new Error('No valid JSON. Try a clearer image.');
     const qc=JSON.parse(m[0]);
     sp(100,'Done.'); setTimeout(()=>{document.getElementById('progWrap').style.display='none';},500);
