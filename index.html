@@ -350,7 +350,7 @@ async function unlock() {
     const r = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ accessCode: code, model: 'claude-sonnet-4-20250514', max_tokens: 5, messages: [{ role: 'user', content: 'ping' }] })
+      body: JSON.stringify({ accessCode: code, model: 'claude-sonnet-5', max_tokens: 5, messages: [{ role: 'user', content: 'ping' }] })
     });
     if (r.status === 401) {
       errEl.textContent = 'Incorrect access code — try again.';
@@ -462,7 +462,7 @@ document.getElementById('runBtn').addEventListener('click', async () => {
   content.push({type:'text',text:`Patient age: ${age} yr. Paediatric (<6 yr): ${peds}. ATS/ERS 2019 QC only. Return JSON only.`});
   try {
     sp(30,'Analysing graphs and extracting values…');
-    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({accessCode:sessionCode,model:'claude-sonnet-4-20250514',max_tokens:4000,system:SYSTEM,messages:[{role:'user',content}]})});
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({accessCode:sessionCode,model:'claude-sonnet-5',max_tokens:4000,system:SYSTEM,messages:[{role:'user',content}]})});
     sp(75,'Applying ATS/ERS 2019 grading…');
     const d=await r.json();
     if (d.error) throw new Error(typeof d.error==='object'?d.error.message:d.error);
